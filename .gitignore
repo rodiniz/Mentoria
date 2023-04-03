@@ -1,0 +1,50 @@
+# Visual Studio files
+.vs/
+*.user
+*.suo
+*.cache
+*.dll
+*.pdb
+*.obj
+*.exe
+*.log
+*.vspscc
+*_i.c
+*_p.c
+*.ncb
+*.sdf
+*.opensdf
+*.sln.docstates
+*.sln.bin
+*.suo
+*.bak
+*.cache
+*.ilk
+*.tlog
+
+# Build results
+[Bb]in/
+[Oo]bj/
+
+# NuGet packages
+*.nuget/
+packages/
+
+# MSTest test Results
+[Tt]est[Rr]esult*/
+[Bb]uild[Ll]og.*
+
+# Misc
+_ReSharper*/
+*.[Rr]e[Ss]harper
+[Tt]humbs.db
+*.dbmdl
+*.[Pp]ublish.xml
+*.deployproj
+*.user
+*.cache
+*.log
+*.vspx
+*.pubxml
+*.publishproj
+node_modules/
