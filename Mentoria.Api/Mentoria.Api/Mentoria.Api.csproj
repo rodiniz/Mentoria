@@ -13,7 +13,6 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Mentoria.Application\Mentoria.Application.csproj" />
     <ProjectReference Include="..\..\Mentoria.Infrastructure\Mentoria.Infrastructure.csproj" />
-    <ProjectReference Include="..\..\Mentoria.Shared\Mentoria.Shared.csproj" />
   </ItemGroup>
 
 </Project>
