@@ -1,8 +1,7 @@
 ﻿namespace Mentoria.Infrastructure
 {
-    public class CustomerEntity
-    {
-        public int Id { get; set; }
+    public class CustomerEntity:BaseEntity
+    {     
 
         public string? FirstName { get; set; }
 
