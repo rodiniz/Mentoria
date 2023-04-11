@@ -1,5 +1,10 @@
-﻿using Mentoria.Shared;
+﻿
+using AutoMapper;
+using Mentoria.Application;
+using Mentoria.Application.Dtos;
+using Mentoria.Domain;
 using Microsoft.AspNetCore.Mvc;
+using OneOf;
 
 namespace Mentoria.Api.Controllers
 {
@@ -7,7 +12,14 @@ namespace Mentoria.Api.Controllers
     [ApiController]
     public class CustomerController : ControllerBase
     {
+        private readonly ICrudService<Customer> _customerService;
+        private readonly IMapper _mapper;      
 
+        public CustomerController(ICrudService<Customer> customerService,IMapper mapper)
+        {
+            _customerService= customerService;
+             _mapper = mapper;
+        }
         [HttpGet]
         public ActionResult<IEnumerable<CustomerDto>> Get()
         {
@@ -25,19 +37,24 @@ namespace Mentoria.Api.Controllers
 
         // POST api/MyController
         [HttpPost]
-        public ActionResult<CustomerDto> Post([FromBody] CustomerDto value)
+        public async Task<IActionResult> PostAsync([FromBody] CustomerDto value)
         {
-
-            return Ok();
+            var  createUserResult= await _customerService.Create(_mapper.Map<Customer>(value));
+            return createUserResult.Match<IActionResult>(
+                customer => Ok(customer),
+                validationResult => BadRequest(validationResult.Errors));
+            
         }
 
         // PUT api/MyController/5
         [HttpPut("{id}")]
-        public ActionResult<CustomerDto> Put(int id, [FromBody] CustomerDto value)
+        public async Task<IActionResult> Put(int id, [FromBody] CustomerDto value)
         {
-            // TODO: Implement PUT method to update a specific resource by ID.
-            return Ok();
-        }
+           var  updatedResult= await _customerService.UpdateAsync(_mapper.Map<Customer>(value));
+            return updatedResult.Match<IActionResult>(
+                customer => Ok(customer),
+                _ => NotFound(),
+                validationResult => BadRequest(validationResult.Errors));        }
 
         // DELETE api/MyController/5
         [HttpDelete("{id}")]
@@ -49,4 +66,4 @@ namespace Mentoria.Api.Controllers
     }
 
 }
-}
+

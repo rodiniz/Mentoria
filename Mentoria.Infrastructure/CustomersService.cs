@@ -20,11 +20,11 @@ public class CustomersService : ICrudService<Customer>
         _mapper = mapper;
     }
 
-    public async Task<OneOf<Customer, ValidationResult>> Create(Customer obj)
+    public async Task<OneOf<Customer, ValidationFailed>> Create(Customer obj)
     {
          var validationResult = await _validator.ValidateAsync(obj);
         if(!validationResult.IsValid){
-            return validationResult;
+            return new ValidationFailed(validationResult.Errors);
         }
 
         return obj;
@@ -51,7 +51,7 @@ public class CustomersService : ICrudService<Customer>
         throw new NotImplementedException();
     }
 
-    public async Task<OneOf<Customer, NotFound, ValidationResult>> UpdateAsync(Customer obj)
+    public async Task<OneOf<Customer, NotFound, ValidationFailed>> UpdateAsync(Customer obj)
     {
         CustomerEntity entity=await _repository.GetById(obj.Id);
         if(entity==null){
@@ -59,7 +59,7 @@ public class CustomersService : ICrudService<Customer>
         }
         var validationResult = await _validator.ValidateAsync(obj);
         if(!validationResult.IsValid){
-            return validationResult;
+            return new ValidationFailed(validationResult.Errors);
         }
 
         await _repository.Update(entity);

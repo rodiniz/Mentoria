@@ -1,18 +1,17 @@
 namespace Mentoria.Application;
-using FluentValidation.Results;
 using OneOf;
 
-public interface ICrudService<D> {
+public interface ICrudService<T> {
     
-    Task<OneOf<D, ValidationResult>> Create(D obj);
+    Task<OneOf<T, ValidationFailed>> Create(T obj);
 
-    Task<OneOf<D, NotFound,ValidationResult>> UpdateAsync(D obj);
+    Task<OneOf<T, NotFound,ValidationFailed>> UpdateAsync(T obj);
 
-    Task Delete(D obj);
+    Task Delete(T obj);
 
-    Task<D> GetAsync(int id);
+    Task<T> GetAsync(int id);
 
-    List<D> Get(int currentPage, int pageSize);
+    List<T> Get(int currentPage, int pageSize);
 
     int TotalCount();
 }

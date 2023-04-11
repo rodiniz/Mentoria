@@ -1,8 +1,10 @@
 ﻿using FluentValidation;
+using Mentoria.Application;
 using Mentoria.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace Mentoria.Infrastructure
 {
@@ -17,6 +19,7 @@ namespace Mentoria.Infrastructure
             });
 
              services.AddScoped<IValidator<Customer>, CustomerValidator>();
+             services.AddScoped<ICrudService<Customer>, CustomersService>();
         }
     }
 }
