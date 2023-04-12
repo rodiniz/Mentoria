@@ -41,7 +41,7 @@ namespace Mentoria.Api.Controllers
         {
             var  createUserResult= await _customerService.Create(_mapper.Map<Customer>(value));
             return createUserResult.Match<IActionResult>(
-                customer => Ok(customer),
+                customer => Created(string.Empty,customer),
                 validationResult => BadRequest(validationResult.Errors));
             
         }
