@@ -10,6 +10,10 @@
     <PackageReference Include="AutoMapper" Version="12.0.1" />
     <PackageReference Include="FluentValidation" Version="11.5.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.15" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.5">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.15" />
     <PackageReference Include="OneOf" Version="3.0.243" />
   </ItemGroup>
@@ -17,10 +21,6 @@
   <ItemGroup>
     <ProjectReference Include="..\Mentoria.Application\Mentoria.Application.csproj" />
     <ProjectReference Include="..\Mentoria.Domain\Mentoria.Domain.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Respositories\" />
   </ItemGroup>
 
 </Project>

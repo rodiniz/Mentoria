@@ -5,6 +5,7 @@ public class CustomerValidator : AbstractValidator<Customer>
     public CustomerValidator()
     {
         RuleFor(customer => customer.FirstName).NotNull();
+        RuleFor(customer => customer.SurName).NotNull();
         RuleFor(customer => customer.Email).NotNull().EmailAddress();
     }
 }

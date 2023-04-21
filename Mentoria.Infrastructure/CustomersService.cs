@@ -1,19 +1,24 @@
 using AutoMapper;
 using FluentValidation;
-using FluentValidation.Results;
 using Mentoria.Application;
 using Mentoria.Domain;
-using Mentoria.Infrastructure;
+using Mentoria.Infrastructure.Repositories;
 using OneOf;
+using OneOf.Types;
+
+namespace Mentoria.Infrastructure;
 
 public class CustomersService : ICrudService<Customer>
 {
     private readonly IValidator<Customer> _validator;
-    private readonly IRepository<CustomerEntity> _repository;
+    private readonly IRepository<CustomerEntity?> _repository;
 
     private readonly IMapper _mapper;
 
-    public CustomersService(IValidator<Customer> validator, IRepository<CustomerEntity> repository, IMapper mapper)
+    public CustomersService(
+        IValidator<Customer> validator, 
+        IRepository<CustomerEntity?> repository,
+        IMapper mapper)
     {
         _validator = validator;
         _repository = repository;
@@ -22,18 +27,18 @@ public class CustomersService : ICrudService<Customer>
 
     public async Task<OneOf<Customer, ValidationFailed>> Create(Customer obj)
     {
-         var validationResult = await _validator.ValidateAsync(obj);
+        var validationResult = await _validator.ValidateAsync(obj);
         if(!validationResult.IsValid){
             return new ValidationFailed(validationResult.Errors);
         }
-
-        return obj;
+        var inserted= await _repository.Add(_mapper.Map<CustomerEntity>(obj));
+        return _mapper.Map<Customer>(inserted);
     }
 
-    public async Task Delete(Customer obj)
+    public async Task Delete(int id)
     {
-        var entity= _mapper.Map<CustomerEntity>(obj);
-        await _repository.Remove(entity);
+      
+        await _repository.Remove(id);
     }
 
     public async Task<Customer> GetAsync(int id)
@@ -51,9 +56,15 @@ public class CustomersService : ICrudService<Customer>
         throw new NotImplementedException();
     }
 
+    public async Task<List<Customer>> GetAll()
+    {
+        var results= (await _repository.GetAll()).ToList();
+        return _mapper.Map<List<Customer>>(results);
+    }
+
     public async Task<OneOf<Customer, NotFound, ValidationFailed>> UpdateAsync(Customer obj)
     {
-        CustomerEntity entity=await _repository.GetById(obj.Id);
+        var entity=await _repository.GetById(obj.Id);
         if(entity==null){
             return new NotFound();
         }
@@ -61,7 +72,7 @@ public class CustomersService : ICrudService<Customer>
         if(!validationResult.IsValid){
             return new ValidationFailed(validationResult.Errors);
         }
-
+        entity = _mapper.Map<CustomerEntity>(obj);
         await _repository.Update(entity);
 
         return _mapper.Map<Customer>(entity);

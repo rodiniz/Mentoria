@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using Mentoria.Application;
 using Mentoria.Domain;
+using Mentoria.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,7 +18,7 @@ namespace Mentoria.Infrastructure
             {
                 options.UseSqlite(configuration.GetConnectionString("MyConnection"));
             });
-
+             services.AddScoped<IRepository<CustomerEntity>, CustomerRepository>();
              services.AddScoped<IValidator<Customer>, CustomerValidator>();
              services.AddScoped<ICrudService<Customer>, CustomersService>();
         }

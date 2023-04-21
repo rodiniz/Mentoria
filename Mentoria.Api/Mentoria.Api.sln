@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mentoria.Application", "..\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mentoria.Infrastructure", "..\Mentoria.Infrastructure\Mentoria.Infrastructure.csproj", "{D1399063-74BC-48CD-A3AE-E1DAEFB041FF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mentoria.Infrastructure.Tests", "..\Mentoria.Infrastructure.Tests\Mentoria.Infrastructure.Tests.csproj", "{0A4BAE64-2D00-443B-8650-6F04FC355F08}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{D1399063-74BC-48CD-A3AE-E1DAEFB041FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D1399063-74BC-48CD-A3AE-E1DAEFB041FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D1399063-74BC-48CD-A3AE-E1DAEFB041FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0A4BAE64-2D00-443B-8650-6F04FC355F08}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A4BAE64-2D00-443B-8650-6F04FC355F08}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A4BAE64-2D00-443B-8650-6F04FC355F08}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A4BAE64-2D00-443B-8650-6F04FC355F08}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

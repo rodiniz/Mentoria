@@ -1,4 +1,7 @@
+using System.Reflection;
+using Mentoria.Application.Profiles;
 using Mentoria.Infrastructure;
+using Mentoria.Infrastructure.Profiles;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,6 +11,10 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddAutoMapper(
+    typeof(CustomerProfile).Assembly,
+    typeof(CustomerEntityProfile).Assembly
+);
 builder.Services.ConfigureInfraStructure(builder.Configuration);
 var app = builder.Build();
 

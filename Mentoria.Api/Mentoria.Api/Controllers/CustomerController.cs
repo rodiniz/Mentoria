@@ -21,18 +21,18 @@ namespace Mentoria.Api.Controllers
              _mapper = mapper;
         }
         [HttpGet]
-        public ActionResult<IEnumerable<CustomerDto>> Get()
+        public async Task<ActionResult<IEnumerable<CustomerDto>>> Get()
         {
-            // TODO: Implement GET method to retrieve all resources.
-            return Ok();
+            var customers = await _customerService.GetAll();
+            return Ok(_mapper.Map<List<CustomerDto>>(customers));
         }
 
 
         [HttpGet("{id}")]
-        public ActionResult<CustomerDto> Get(int id)
+        public async Task<ActionResult<CustomerDto>> Get(int id)
         {
-            // TODO: Implement GET method to retrieve a specific resource by ID.
-            return Ok();
+            var result=await _customerService.GetAsync(id);
+            return Ok(_mapper.Map<CustomerDto>(result));
         }
 
         // POST api/MyController
@@ -51,16 +51,18 @@ namespace Mentoria.Api.Controllers
         public async Task<IActionResult> Put(int id, [FromBody] CustomerDto value)
         {
            var  updatedResult= await _customerService.UpdateAsync(_mapper.Map<Customer>(value));
-            return updatedResult.Match<IActionResult>(
-                customer => Ok(customer),
+           
+           return updatedResult.Match<IActionResult>(
+                customer => Ok(_mapper.Map<CustomerDto>(customer) ),
                 _ => NotFound(),
-                validationResult => BadRequest(validationResult.Errors));        }
+                validationResult => BadRequest(validationResult.Errors));
+        }
 
         // DELETE api/MyController/5
         [HttpDelete("{id}")]
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
-
+            await _customerService.Delete(id);
             return Ok();
         }
     }
