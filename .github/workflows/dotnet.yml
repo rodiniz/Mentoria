@@ -25,5 +25,5 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
-      run: dotnet build Mentoria.Api.sln--no-restore
+      run: dotnet build Mentoria.Api.sln --no-restore
 
