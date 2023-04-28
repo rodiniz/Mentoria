@@ -1,4 +1,3 @@
-using System.Reflection;
 using Mentoria.Application.Profiles;
 using Mentoria.Infrastructure;
 using Mentoria.Infrastructure.Profiles;
@@ -24,6 +23,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod());
 
 app.UseHttpsRedirection();
 

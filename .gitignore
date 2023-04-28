@@ -49,3 +49,4 @@ _ReSharper*/
 *.publishproj
 node_modules/
 Mentoria.Api/.idea
+MentoriaClient/.vscode
