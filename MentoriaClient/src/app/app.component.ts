@@ -1,4 +1,4 @@
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { CustomerService } from './services/customer.service';
 import { Component, OnInit, inject } from '@angular/core';
 import { Customer } from './model/customer.model';
@@ -14,5 +14,14 @@ export class AppComponent implements OnInit {
   customers$!:Observable<Customer[]>;
   ngOnInit(): void {
     this.customers$= this.customerService.list();
+  }
+  deleteCustomer(id:number){
+      this.customerService.delete(id)
+            .subscribe(()=>{
+              this.customers$ = this.customers$.pipe(
+                map(results => results.filter(r => r.id !==id)
+              ));
+            });
+
   }
 }
