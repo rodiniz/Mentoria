@@ -48,3 +48,4 @@ _ReSharper*/
 *.pubxml
 *.publishproj
 node_modules/
+MentoriaClient/.angular
